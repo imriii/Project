@@ -42,12 +42,16 @@ def pemesanan():
     print("=" * 36)
     print("Pembayaran")
     print("-" * 36)
-    nama = input("Masukan Nama Anda      : ")
-    no_hp = input("Masukan Nomor HP Anda    : ")
-    email = input("Masukan Email Anda       : ")
-    lama_menginap = int(input("Berapa lama menginap    : "))
+    nama = input("Masukan Nama Anda                     : ")
+    no_hp = input("Masukan Nomor HP Anda                : ")
+    email = input("Masukan Email Anda                   : ")
+    lama_menginap = int(input("Berapa lama menginap     : "))
     harga_total= harga_kamar * lama_menginap
     print("Harga Sewa Hotel       :",harga_total)
+
+    gabungan = f"{nama}, {no_hp}, {email}, {nama_hotel}, {jenis_kamar}, {lama_menginap}, {harga_kamar}"
+    with open("data.txt", "a") as file:
+        file.write(gabungan)
 
     #PROSES NOTA
     print("-" * 36)

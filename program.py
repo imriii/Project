@@ -163,3 +163,29 @@ def update():
         file.write(data_str)
 
     hasil_belanja(nama, kamar, lama_menginap, tagihan)
+
+# FUngsi untuk delete data
+def hapus_data():
+    baca_data()
+    no = int(input("Masukkan Nomor : "))
+
+    with open("data.txt","r") as file :
+        content = file.readlines()
+
+        for index,data in enumerate(content):
+            if index == no - 1:
+                data = data.split(",")
+                nama = data[0].strip()
+                kamar = data[1].strip()
+                lama_menginap = data[2].strip() 
+                tagihan = data[3].replace("\n", "")
+                break
+        
+        hasil_belanja(nama, kamar, lama_menginap, tagihan)
+
+        opsi = input("Yakin Ingin dihapus (y/t) : ")
+        if opsi == "y" or opsi == "Y":
+            with open("data.txt","w") as file:
+                    for index,data in enumerate(content):
+                        if index != no -1 :
+                            file.write(data)

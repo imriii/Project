@@ -189,3 +189,27 @@ def hapus_data():
                     for index,data in enumerate(content):
                         if index != no -1 :
                             file.write(data)
+
+# program dimulai
+while True:
+    os.system("cls")
+    print("Selamat Datang Di Program".center(60))
+    print("Booking Hotel".center(59) + "\n")
+    print("1. Menu User\n2. Menu Admin")
+    opsi = input("Masukkan Nomor : ")
+    if opsi == "1":
+        while True:
+            daftar_kamar()
+            opsi = input("Apakah Selesai (y/n): ")
+            if opsi == "y":
+                break
+    else:
+        while True:
+            menu_admin()
+            opsi = input("Masukkan Nomor : ")
+            match opsi:
+                case "1": baca_data()
+                case "2": sorting()
+                case "3": update()
+                case "4": hapus_data()
+                case "5": break

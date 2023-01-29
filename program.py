@@ -84,4 +84,25 @@ def menu_admin():
     print("3. Update Data")
     print("4. Delete Data")
     print("5. Exit\n")     
-    
+
+# Fungsi untuk membaca database
+def baca_data():
+    os.system("cls")
+    print("="*81)
+    print("No |         Nama        |         Kamar        | Lama Menginap |     Tagihan   |")
+    print("="*81)
+
+    with open("data.txt","r") as file:
+        content = file.readlines()
+
+        for no,data in enumerate(content):
+            data = data.split(",")
+            nama = data[0]
+            kamar = data[1]
+            lama_menginap = data[2] 
+            tagihan = data[3].replace("\n", "")
+
+            print(f"{no+1:2} | {nama} | {kamar} | {lama_menginap:.10}hari| Rp.{tagihan:.10}|")
+
+    print("="*81)
+    x = input("")

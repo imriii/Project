@@ -106,3 +106,25 @@ def baca_data():
 
     print("="*81)
     x = input("")
+
+# Fungsi untuk sorting
+def sorting():
+    os.system("cls")
+    print("="*81)
+    print("No |         Nama        |         Kamar        | Lama Menginap |     Tagihan   |")
+    print("="*81)
+
+    with open("data.txt","r") as file:
+        content = file.readlines()
+        data_tuple = [tuple(line.strip().split(',')) for line in content]
+        data_sort = sorted(data_tuple, key=lambda x:x[0])
+        for no,data in enumerate(data_sort):
+            nama = data[0]
+            kamar = data[1]
+            lama_menginap = data[2] 
+            tagihan = data[3].replace("\n", "")
+
+            print(f"{no+1:2} | {nama} | {kamar} | {lama_menginap:.10}hari| Rp.{tagihan:.10}|")
+
+    print("="*81)
+    x = input("")

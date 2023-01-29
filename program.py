@@ -1,168 +1,87 @@
 import os
-import platform
-import random
-import time
-import sys
 
-#DEF
-def clearTerminal():
-	#Untuk sistem Windows
-	if( platform.system() == "Windows"):
-		os.system('cls')
-def list_menu():
-    print("=" * 36)
-    print("Aplikasi Pesan Hotel Surabaya")
-    print("-" * 36)
-    print("1","Pilih Hotel Anda")
-    print("2","Tentang Aplikasi")
-    print("3","Keluar Aplikasi")
-    print("-" * 36)
-def list_hotel():
-    print("=" * 36)
-    print("Daftar Hotel yang Tersedia")
-    print("-" * 36)
-    print("1","Horison Plaza Surabaya")
-    print("2","Alexander Hotel Surabaya")
-    print("3","Karlita Hotel Surabaya")
-    print("-" * 36)
-def kamar():
-    print("=" * 36)
-    print("Pilih Kamar")
-    print("-" * 36)
-    print("1","Standart Room")
-    print("2","Deluxe Room")
-    print("-" * 36)
-def pemesanan():
-    #Header
-    print("=" * 36)
-    print("Mengisi Data Diri")
-    print("-" * 36)
-    #Input Biodata
-    clearTerminal()
-    print("=" * 36)
-    print("Pembayaran")
-    print("-" * 36)
-    nama = input("Masukan Nama Anda                     : ")
-    no_hp = input("Masukan Nomor HP Anda                : ")
-    email = input("Masukan Email Anda                   : ")
-    lama_menginap = int(input("Berapa lama menginap     : "))
-    harga_total= harga_kamar * lama_menginap
-    print("Harga Sewa Hotel       :",harga_total)
+# Struktur database
+TEMPLATE = {
+    "nama": 20*" ",
+    "kamar": 20*" ",
+    "lama_menginap": 20*" ",
+    "tagihan": 20*" ",
+}
 
-    gabungan = f"{nama}, {no_hp}, {email}, {nama_hotel}, {jenis_kamar}, {lama_menginap}, {harga_kamar}"
-    with open("data.txt", "a") as file:
-        file.write(gabungan)
+# Fungsi untuk melihat list kamar
+def daftar_kamar():
+    os.system("cls")
+    print("="*33)
+    print("No |   Jenis Kamar  | Harga Kamar")
+    print("="*33)
+    with open("room.txt", "r") as file:
+        data = file.readlines()
 
-    #PROSES NOTA
-    print("-" * 36)
-    print("Sedang Memproses NOTA. . .")
-    time.sleep(3)
-    while True:
-        #Output Nota
-        clearTerminal()
-        print("=" * 36)
-        print("Bukti Pembayaran")
-        print("-" * 36)
-        print("Nomer Kamar Hotel        : ",random.randint(1,100))
-        print("Nama Hotel               : ",nama_hotel)
-        print("Jenis kamar              : ",jenis_kamar)
-        print("Nama Pemesan             : ",nama)
-        print("No HandPhone             : ",no_hp)
-        print("Alamat Email             : ",email)
-        print("Lama Menginap            : ",lama_menginap , "hari")
-        print("Total Harga              : ",harga_total)
-        print("-" * 36)
-        exit=input("Enter Untuk Keluar . . .")
-        if exit == "":
-            clearTerminal()
-            print("Terimakasih Sudah Menggunakan Aplikasi Kami :)\n")
-            sys.exit()
-clearTerminal()
-print("=" * 36)
-print("Aplikasi Pesan Hotel Surabaya")
-print("-" * 36)
-print("1","Pilih Hotel Anda")
-print("2","Tentang Aplikasi")
-print("3","Keluar Aplikasi")
-print("-" * 36)
-input_menu = int(input("Masukan Pilihan Anda : "))
-print("-" * 36)
+        for index,content in enumerate(data):
+            content = content.split(",")
+            kamar = content[0]
+            harga = content[1]
+            print(f"{index+1:2} | {kamar} | {harga}")
 
-#Jika Input Menu Memilih Nomer 1
-if(input_menu == 1):
-    clearTerminal()
-    list_hotel()
-    input_hotel = int(input("Masukan Hotel Pilihan Anda : "))
+    print("="*33)
 
-#Horison Plaza
-    if (input_hotel == 1):
-        nama_hotel = "Horison Plaza Tegal"
-        clearTerminal()
-        kamar()
-        input_kamar = input("Masukan Pilihan kamar Anda : ")
-        if (input_kamar == "1"):
-            jenis_kamar = "Standart Room"
-            harga_kamar = 200000 
-            pemesanan() 
-        elif(input_kamar == "2"):
-            jenis_kamar = "Deluxe Room"
-            harga_kamar = 350000
-            pemesanan()
-        else:
-            print("Anda Salah Memasukan Kode")
-#Alexander Hotel
-    elif (input_hotel == 2):
-        nama_hotel = "Alexander Hotel Tegal"
-        clearTerminal()
-        kamar()
-        input_kamar = input("Masukan Pilihan kamar Anda : ")
-        if (input_kamar == "1"):
-            jenis_kamar = "Standart Room"
-            harga_kamar = 300000
-            pemesanan() 
-        elif(input_kamar == "2"):
-            jenis_kamar = "Deluxe Room"
-            harga_kamar = 450000
-            pemesanan()
-        else:
-            print("Anda Salah Memasukan Kode")
-#Karlita Hotel
-    elif (input_hotel == 3):
-        nama_hotel = "Karlita Hotel Tegal"
-        clearTerminal()
-        kamar()
-        input_kamar = input("Masukan Pilihan kamar Anda : ")
-        if (input_kamar == "1"):
-            jenis_kamar = "Standart Room"
-            harga_kamar = 250000
-            pemesanan()        
-        elif(input_kamar == "2"):
-            jenis_kamar = "Deluxe Room"
-            harga_kamar = 325000
-            pemesanan()
-        else:
-            print("Anda Salah Memasukan Kode")
-    else:
-        print("\n")
-        print("Input Salah !! \n")
-#Jika Input Menu Memilih Nomer 2
-elif(input_menu == 2):
-    clearTerminal()
-    print("=" * 47)
-    print("Aplkasi Sewa Hotel Sederhana Yang dibuat oleh")
-    print("-" * 47)
-    print("1","Arie Firmansyah ")
-    print("2","Je'izza Alya Nabila")
-    print("-" * 47)
-    exit=input("Enter Untuk Keluar . . .")
-    if exit == "":
-        clearTerminal()
-        sys.exit()
-#Jika Input Menu Memilih Nomer 3
-elif(input_menu == 3):
-    clearTerminal()
-    print("Terima kasih,telah menggunakan aplikasi kami :) \n")
-    exit()
+    input_data()
+    
+# Fungsi untuk menginput data dari user    
+def input_data():
+    no = int(input("Masukkan Nomor Kamar : "))
+    os.system("cls")
+    lama_menginap = int(input("Masukkan Lama Menginap : "))
+    nama = input("Masukkan Nama Anda : ")
 
-else:
-    print("Anda Salah Memasukan Kode \n")
+    with open("room.txt", "r") as file:
+        content = file.readlines()
+
+        for index,data in enumerate(content):
+            data = data.split(",")
+            kamar = data[0]
+            harga_kamar = int(data[1])
+            if index == no - 1:
+                break
+        
+    tagihan = harga_kamar * lama_menginap
+    tagihan = str(tagihan)
+    lama_menginap = str(lama_menginap)
+
+    database = TEMPLATE.copy()
+    
+    database["nama"] = nama + TEMPLATE["nama"][len(nama):]
+    database["kamar"] = kamar  + TEMPLATE["kamar"][len(kamar):]
+    database["lama_menginap"] = lama_menginap  + TEMPLATE["lama_menginap"][len(lama_menginap):]
+    database["tagihan"] = tagihan  + TEMPLATE["tagihan"][len(tagihan):]
+
+    data_str = f"{database['nama']},{database['kamar']},{database['lama_menginap']},{database['tagihan']}\n"
+
+    with open("data.txt","a") as file:
+        file.write(data_str)
+
+    hasil_belanja(nama, kamar, lama_menginap, tagihan)
+
+def hasil_belanja(nama, kamar, lama_menginap, tagihan):
+    os.system("cls")
+    print("="*50)
+    print("Silahkan Cek Data Anda".center(50))
+    print("="*50)
+    print(f"Nama                : {nama}")
+    print(f"Kamar Yang Di Pesan : {kamar}")
+    print(f"Lama Menginap       : {lama_menginap}")
+    print(f"Total Tagihan       : {tagihan}")
+    print("="*50)
+    x = input("")
+
+# Fungsi manmpilkan menu admin
+def menu_admin():
+    os.system("cls")
+    print("Selamat Datang Di Program".center(60))
+    print("Booking Hotel".center(59) + "\n")
+    print("1. Read Data")
+    print("2. Sort Data")
+    print("3. Update Data")
+    print("4. Delete Data")
+    print("5. Exit\n")     
+    

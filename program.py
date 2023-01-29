@@ -128,3 +128,38 @@ def sorting():
 
     print("="*81)
     x = input("")
+
+# Fungsi untuk update data
+def update():
+    baca_data()
+    no = int(input("Masukkan Nomor : "))
+
+    with open("data.txt","r") as file:
+        content = file.readlines() 
+        
+        for index,data in enumerate(content):
+            if index == no - 1:
+                data = data.split(",")
+                nama = data[0].strip()
+                kamar = data[1].strip()
+                lama_menginap = data[2].strip() 
+                tagihan = data[3].replace("\n", "")
+                break
+        
+    hasil_belanja(nama, kamar, lama_menginap, tagihan)
+    nama = input("Masukkan Nama Baru : ")
+
+    database = TEMPLATE.copy()
+    
+    database["nama"] = nama + TEMPLATE["nama"][len(nama):]
+    database["kamar"] = kamar  + TEMPLATE["kamar"][len(kamar):]
+    database["lama_menginap"] = lama_menginap  + TEMPLATE["lama_menginap"][len(lama_menginap):]
+    database["tagihan"] = tagihan  + TEMPLATE["tagihan"][len(tagihan):]
+
+    data_str = f"{database['nama']},{database['kamar']},{database['lama_menginap']},{database['tagihan']}\n"
+
+    with open("data.txt","r+") as file:
+        file.seek(len(data_str) * (no - 1))
+        file.write(data_str)
+
+    hasil_belanja(nama, kamar, lama_menginap, tagihan)

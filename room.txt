@@ -1,0 +1,7 @@
+Standard Room  ,500000 
+Superior Room  ,1000000
+Deluxe Room    ,1500000
+Twin Room      ,2000000
+Single Room    ,1700000
+Double Room    ,2500000
+Family Room    ,2000000 
